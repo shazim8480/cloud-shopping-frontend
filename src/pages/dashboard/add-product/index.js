@@ -1,8 +1,13 @@
+import { AddProductForm } from "@/components/AddProductForm";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import React from "react";
 
 const AddProductPage = () => {
-  return <div>Add product here</div>;
+  return (
+    <div className="bg-slate-100">
+      <AddProductForm />
+    </div>
+  );
 };
 
 export default AddProductPage;

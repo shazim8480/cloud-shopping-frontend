@@ -29,14 +29,15 @@ export default function DashboardPage() {
   return (
     <section className="flex-grow p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium">Transactions</h3>
+        <h3 className="text-lg font-medium">Inventory</h3>
       </div>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Description</TableHead>
+            <TableHead>Date Added</TableHead>
+            <TableHead>Product Name</TableHead>
             <TableHead>Category</TableHead>
+            <TableHead>Added By</TableHead>
             <TableHead className="text-right">Price</TableHead>
             <TableHead />
           </TableRow>
@@ -44,23 +45,25 @@ export default function DashboardPage() {
         <TableBody>
           <TableRow>
             <TableCell>Mar 12</TableCell>
-            <TableCell>WeWork</TableCell>
+            <TableCell>Men's Shoes</TableCell>
             <TableCell>
               <span className="px-2 py-1 text-red-800 bg-red-200 rounded-md">
                 <IconTag className="inline-block w-4 h-4 mr-1" />
-                Office
+                Shoe
               </span>
             </TableCell>
+            <TableCell>shazim1234</TableCell>
+
             <TableCell className="text-right">$175.00</TableCell>
             <TableCell>
               <Popover>
                 <PopoverTrigger>
-                  {/* <Button
+                  <Button
                     className="px-2 py-1 text-black bg-transparent rounded hover:bg-green-200 active:bg-green-300"
                     type="button"
                   >
                     <IconMorevertical className="w-4 h-4" />
-                  </Button> */}
+                  </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-40">
                   <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-500 rounded-lg hover:bg-green-200 active:bg-green-300">

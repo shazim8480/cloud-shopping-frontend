@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Sidebar = () => {
@@ -11,11 +12,16 @@ const Sidebar = () => {
       <nav className="space-y-2">
         <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-600 rounded-lg hover:bg-green-200 active:bg-green-300">
           {/* <IconHome className="w-4 h-4" /> */}
-          <span className="text-sm font-medium">Product List</span>
+          <Link href={"/dashboard"} className="text-sm font-medium">
+            Product List
+          </Link>
         </button>
+
         <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-800 bg-green-200 rounded-lg active:bg-green-300">
           {/* <IconTransactions className="w-4 h-4" /> */}
-          <span className="text-sm font-medium">Add Product</span>
+          <Link href={"/dashboard/add-product"} className="text-sm font-medium">
+            Add Product
+          </Link>
         </button>
       </nav>
     </div>
