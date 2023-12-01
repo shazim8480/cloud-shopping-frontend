@@ -43,12 +43,34 @@ export function AddProductForm() {
                   />
                 </div>
                 <div className="pt-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="role">Category</Label>
+                    <Select className="z-10" id="role" required>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectGroup>
+                          <SelectItem value="grocery">Grocery</SelectItem>
+                          <SelectItem value="fashion">Fashion</SelectItem>
+                          <SelectItem value="pharmaceuticals">
+                            Pharmaceuticals
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="pt-2">
                   <Input
                     id="price"
                     label={"Product Price"}
                     placeholder="$0.00"
                     required
                   />
+                </div>
+                <div className="pt-2">
+                  <Input id="username" label={"Created by"} required />
                 </div>
               </div>
               <div className="pt-2">
@@ -60,25 +82,7 @@ export function AddProductForm() {
                   type="email"
                 />
               </div>
-              <div className="pt-2">
-                <Input id="username" label={"Username"} required />
-              </div>
-              <div className="z-10 space-y-2">
-                <Label htmlFor="role">Category</Label>
-                <Select className="z-10" id="role" required>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Categories</SelectLabel>
-                      <SelectItem value="admin">Grocery</SelectItem>
-                      <SelectItem value="user">Fashion</SelectItem>
-                      <SelectItem value="user">Pharmaceuticals</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
+              <div className="pt-2"></div>
             </div>
           </CardContent>
           <CardFooter>
