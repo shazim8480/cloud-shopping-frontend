@@ -10,19 +10,19 @@ const Sidebar = () => {
         </h3>
       </div>
       <nav className="space-y-2">
-        <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-600 rounded-lg hover:bg-green-200 active:bg-green-300">
-          {/* <IconHome className="w-4 h-4" /> */}
-          <Link href={"/dashboard"} className="text-sm font-medium">
+        <Link href={"/dashboard"} className="text-sm font-medium">
+          <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-800 rounded-lg hover:bg-green-200 ">
+            {/* <IconHome className="w-4 h-4" /> */}
             Product List
-          </Link>
-        </button>
+          </button>
+        </Link>
 
-        <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-800 bg-green-200 rounded-lg active:bg-green-300">
-          {/* <IconTransactions className="w-4 h-4" /> */}
-          <Link href={"/dashboard/add-product"} className="text-sm font-medium">
+        <Link href={"/dashboard/add-product"} className="text-sm font-medium">
+          <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-800 rounded-lg hover:bg-green-200 ">
+            {/* <IconTransactions className="w-4 h-4" /> */}
             Add Product
-          </Link>
-        </button>
+          </button>
+        </Link>
       </nav>
     </div>
   );

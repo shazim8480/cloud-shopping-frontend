@@ -14,13 +14,14 @@ import { useSignInMutation } from "@/redux/feature/auth/auth-api";
 import { setUser } from "@/redux/feature/users/userSlice";
 import Link from "next/link";
 
-const SignInPage = () => {
-  const [signIn] = useSignInMutation();
+const SignUpPage = () => {
+  //   const [signIn] = useSignInMutation();
   const router = useRouter();
 
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -32,16 +33,15 @@ const SignInPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    let response = await signIn(formData);
-    console.log("login data", response);
-    // if (response?.error?.data?.status === false) {
-    //   alert(response?.error?.data?.error);
-    // } else {
-    //   console.log("signIn response", response);
-    //   dispatch(setUser(response));
-    //   router.push("/dashboard");
-    // }
+    // console.log(formData);
+    // let response = await signIn(formData);
+    if (response?.error?.data?.status === false) {
+      alert(response?.error?.data?.error);
+    } else {
+      console.log("sign-up response", response);
+      dispatch(setUser(response));
+      router.push("/dashboard");
+    }
   };
 
   return (
@@ -51,7 +51,7 @@ const SignInPage = () => {
           Welcome to Cloud Shopping
         </h2>
         <h3 className="mt-10 text-xl leading-8 text-center text-green-800">
-          Please Sign in to continue
+          Please Create an account to continue
         </h3>
       </div>
 
@@ -62,6 +62,19 @@ const SignInPage = () => {
           action="#"
           method="POST"
         >
+          {/* name */}
+          <div className="mt-2">
+            <Input
+              id={"name"}
+              label={"Username"}
+              name={"name"}
+              type={"text"}
+              autoComplete={"name"}
+              required
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </div>
           {/* email */}
           <div className="mt-2">
             <Input
@@ -94,16 +107,16 @@ const SignInPage = () => {
               type="submit"
               className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
             >
-              Sign in
+              Sign up
             </button>
 
             <p className="mt-10 text-sm text-center text-gray-500">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/sign-up"
+                href="/sign-in"
                 className="font-semibold leading-6 text-green-600 hover:text-green-500"
               >
-                Sign Up here!
+                Sign in here!
               </Link>
             </p>
           </div>
@@ -113,4 +126,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUpPage;
