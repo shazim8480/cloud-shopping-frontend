@@ -161,13 +161,12 @@ export function AddProductForm() {
               </div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                className="flex w-full mt-10 justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
               >
                 Add Product
               </button>
             </form>
           </CardContent>
-          <CardFooter></CardFooter>
         </Card>
       </div>
     </div>

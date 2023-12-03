@@ -19,17 +19,23 @@ import {
 import { useEffect, useState } from "react";
 import DashboardLayout from "@/layouts/DashboardLayout";
 
-export default function DashboardPage() {
-  //   const [isClient, setIsClient] = useState(false);
+// query
+import { useGetProductsQuery } from "@/redux/feature/products/products-api";
 
-  //   useEffect(() => {
-  //     setIsClient(true);
-  //   }, []);
+// utils
+import { formatTimestamp } from "@/lib/utils";
+
+export default function DashboardPage() {
+  // query //
+  const { data: getProducts, refetchOnMountOrArgChange } =
+    useGetProductsQuery();
+
+  console.log("products", getProducts);
 
   return (
     <section className="flex-grow p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium">Inventory</h3>
+        <h3 className="text-lg font-medium text-green-800">Inventory</h3>
       </div>
       <Table>
         <TableHeader>
@@ -43,45 +49,46 @@ export default function DashboardPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>Mar 12</TableCell>
-            <TableCell>Men's Shoes</TableCell>
-            <TableCell>
-              <span className="px-2 py-1 text-red-800 bg-red-200 rounded-md">
-                <IconTag className="inline-block w-4 h-4 mr-1" />
-                Shoe
-              </span>
-            </TableCell>
-            <TableCell>shazim1234</TableCell>
+          {/* render all products */}
+          {getProducts?.products?.map((item) => {
+            return (
+              <TableRow key={item?.id}>
+                <TableCell>{formatTimestamp(item?.created_at)}</TableCell>
+                <TableCell>{item?.name}</TableCell>
+                <TableCell>
+                  <span className="px-2 py-1 text-orange-700 rounded-md bg-amber-200">
+                    <IconTag className="inline-block w-4 h-4 mr-1" />
+                    {item?.category?.toLowerCase()}
+                  </span>
+                </TableCell>
+                <TableCell>{item?.created_by}</TableCell>
 
-            <TableCell className="text-right">$175.00</TableCell>
-            <TableCell>
-              <Popover>
-                <PopoverTrigger>
-                  <Button
-                    className="px-2 py-1 text-black bg-transparent rounded hover:bg-green-200 active:bg-green-300"
-                    type="button"
-                  >
-                    <IconMorevertical className="w-4 h-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-40">
-                  <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-500 rounded-lg hover:bg-green-200 active:bg-green-300">
-                    <IconEdit className="w-4 h-4" />
-                    <span className="text-sm font-medium">Edit</span>
-                  </button>
-                  <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-500 rounded-lg hover:bg-green-200 active:bg-green-300">
-                    <IconShare className="w-4 h-4" />
-                    <span className="text-sm font-medium">Share</span>
-                  </button>
-                  <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-500 rounded-lg hover:bg-green-200 active:bg-green-300">
-                    <IconDelete className="w-4 h-4" />
-                    <span className="text-sm font-medium">Delete</span>
-                  </button>
-                </PopoverContent>
-              </Popover>
-            </TableCell>
-          </TableRow>
+                <TableCell className="text-right">${item?.price}</TableCell>
+                <TableCell>
+                  <Popover>
+                    <PopoverTrigger>
+                      <Button
+                        className="px-2 py-1 text-black bg-transparent rounded hover:bg-green-200 active:bg-green-300"
+                        type="button"
+                      >
+                        <IconMorevertical className="w-4 h-4" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-40 bg-white">
+                      <button className="flex items-center w-full px-2 py-2 space-x-2 text-green-800 rounded-lg hover:bg-green-200 active:bg-green-300">
+                        <IconEdit className="w-4 h-4" />
+                        <span className="text-sm font-medium">Edit</span>
+                      </button>
+                      <button className="flex items-center w-full px-2 py-2 space-x-2 text-red-800 rounded-lg hover:bg-red-200 active:bg-red-300">
+                        <IconDelete className="w-4 h-4" />
+                        <span className="text-sm font-medium">Delete</span>
+                      </button>
+                    </PopoverContent>
+                  </Popover>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </section>

@@ -8,4 +8,5 @@ export const api = createApi({
   }),
   tagTypes: ["products"],
   endpoints: () => ({}),
+  overrideExisting: true,
 });

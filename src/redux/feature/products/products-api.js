@@ -9,8 +9,8 @@ import { api } from "@/redux/api/apiSlice";
 const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // get all products
-    getProducts: builder.mutation({
-      query: (data) => ({
+    getProducts: builder.query({
+      query: () => ({
         url: `${GET_ALL_PRODUCTS}`,
         method: "GET",
       }),
@@ -28,4 +28,4 @@ const productsApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetProductsMutation, useAddProductMutation } = productsApi;
+export const { useGetProductsQuery, useAddProductMutation } = productsApi;
