@@ -1,4 +1,4 @@
-import PROTOCOL_HOST from "@/constants/url";
+import { PROTOCOL_HOST } from "@/constants/url";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({

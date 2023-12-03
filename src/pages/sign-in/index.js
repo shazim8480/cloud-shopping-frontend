@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import Image from "next/image";
-// import Link from "next/link";
+import Link from "next/link";
 
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
@@ -12,7 +12,6 @@ import { useSignInMutation } from "@/redux/feature/auth/auth-api";
 
 // reducers
 import { setUser } from "@/redux/feature/users/userSlice";
-import Link from "next/link";
 
 const SignInPage = () => {
   const [signIn] = useSignInMutation();
@@ -32,16 +31,16 @@ const SignInPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     let response = await signIn(formData);
-    console.log("login data", response);
-    // if (response?.error?.data?.status === false) {
-    //   alert(response?.error?.data?.error);
-    // } else {
-    //   console.log("signIn response", response);
-    //   dispatch(setUser(response));
-    //   router.push("/dashboard");
-    // }
+    // console.log("login data", response);
+    if (response?.error) {
+      alert(response?.error?.data?.message);
+    } else {
+      console.log("signIn response", response);
+      dispatch(setUser(response));
+      router.push("/dashboard");
+    }
   };
 
   return (
