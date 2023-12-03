@@ -1,4 +1,4 @@
-export const PROTOCOL_HOST = "http://localhost:8000/api";
+export const PROTOCOL_HOST = "https://cloud-shopping-server.onrender.com/api/";
 // const PROTOCOL_HOST_STAGING = "http://localhost:8000/";
 
 // USER AUTH URL
