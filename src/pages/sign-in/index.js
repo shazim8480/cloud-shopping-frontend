@@ -31,9 +31,7 @@ const SignInPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
     let response = await signIn(formData);
-    // console.log("login data", response);
     if (response?.error) {
       alert(response?.error?.data?.message);
     } else {

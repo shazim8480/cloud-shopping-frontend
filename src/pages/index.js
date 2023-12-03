@@ -1,5 +1,5 @@
-import { Poppins } from "next/font/google";
 import SignInPage from "./sign-in";
+import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
   weight: ["400", "500", "700", "800"],

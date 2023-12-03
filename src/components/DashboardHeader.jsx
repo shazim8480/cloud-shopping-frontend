@@ -29,14 +29,12 @@ const DashboardHeader = () => {
         <h4 className="text-sm text-green-900 font-sm">
           Hi, {userName ? userName : "Guest"}
         </h4>
-        {/* <Link href="#"> */}
         <button
           onClick={() => logOutHandler()}
           className="text-sm font-medium hover:underline underline-offset-4"
         >
           Log Out
         </button>
-        {/* </Link> */}
       </nav>
     </header>
   );

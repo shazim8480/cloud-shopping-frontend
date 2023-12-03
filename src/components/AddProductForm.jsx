@@ -12,15 +12,18 @@ import Input from "./Input";
 import {
   SelectValue,
   SelectTrigger,
-  SelectLabel,
   SelectItem,
   SelectGroup,
   SelectContent,
   Select,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
 
 export function AddProductForm() {
+  const userProfile = useSelector((state) => state.user);
+  let userName = userProfile?.user?.data?.user?.name;
+  let userEmail = userProfile?.user?.data?.user?.email;
+
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       <div className="flex-grow mt-10 mb-10">
@@ -70,11 +73,19 @@ export function AddProductForm() {
                   />
                 </div>
                 <div className="pt-2">
-                  <Input id="username" label={"Created by"} required />
+                  <Input
+                    value={userName ? userName : ""}
+                    disabled={true}
+                    id="username"
+                    label={"Created by"}
+                    required
+                  />
                 </div>
               </div>
               <div className="pt-2">
                 <Input
+                  value={userEmail ? userEmail : ""}
+                  disabled={true}
                   id="email"
                   label={"User Email"}
                   placeholder="johndoe@example.com"

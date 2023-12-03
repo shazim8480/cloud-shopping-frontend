@@ -14,6 +14,15 @@ import { useSignInMutation } from "@/redux/feature/auth/auth-api";
 import { setUser } from "@/redux/feature/users/userSlice";
 import Link from "next/link";
 
+// fonts
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["400", "500", "700", "800"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
 const SignUpPage = () => {
   //   const [signIn] = useSignInMutation();
   const router = useRouter();
@@ -45,7 +54,10 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8">
+    <div
+      className={`flex min-h-screen flex-col bg-green-50 items-center justify-between p-24 ${poppins.className}`}
+    >
+      {/* <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8"> */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="text-2xl font-semibold leading-3 text-center text-gray-800">
           Welcome to Cloud Shopping
@@ -113,7 +125,7 @@ const SignUpPage = () => {
             <p className="mt-10 text-sm text-center text-gray-500">
               Already have an account?{" "}
               <Link
-                href="/sign-in"
+                href="/"
                 className="font-semibold leading-6 text-green-600 hover:text-green-500"
               >
                 Sign in here!
