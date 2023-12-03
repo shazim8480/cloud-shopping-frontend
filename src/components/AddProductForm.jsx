@@ -18,11 +18,54 @@ import {
   Select,
 } from "@/components/ui/select";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
+// query
+import { useAddProductMutation } from "@/redux/feature/products/products-api";
 
 export function AddProductForm() {
+  const router = useRouter();
   const userProfile = useSelector((state) => state.user);
   let userName = userProfile?.user?.data?.user?.name;
   let userEmail = userProfile?.user?.data?.user?.email;
+
+  // query //
+  const [addProduct] = useAddProductMutation();
+
+  const [category, setCategory] = useState("");
+
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    category: category,
+    created_by: userName,
+  });
+
+  const handleCategoryChange = (val) => {
+    setCategory(val);
+    setFormData({
+      ...formData,
+      category: val,
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("submit data", formData);
+    let response = await addProduct(formData);
+    if (response?.error) {
+      alert(response?.error?.data?.message);
+    } else {
+      console.log("add product response", response);
+      router.push("/dashboard");
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
@@ -35,71 +78,96 @@ export function AddProductForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="pt-2">
-                  <Input
-                    id="product-name"
-                    label={"Product Name"}
-                    placeholder="example product"
-                    required
-                  />
-                </div>
-                <div className="pt-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="role">Category</Label>
-                    <Select className="z-10" id="role" required>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white">
-                        <SelectGroup>
-                          <SelectItem value="grocery">Grocery</SelectItem>
-                          <SelectItem value="fashion">Fashion</SelectItem>
-                          <SelectItem value="pharmaceuticals">
-                            Pharmaceuticals
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+            {/* product add form */}
+            <form action="#" method="POST" onSubmit={handleSubmit}>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="pt-2">
+                    <Input
+                      id="name"
+                      name="name"
+                      label={"Product Name"}
+                      placeholder="example product"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      type="text"
+                    />
+                  </div>
+                  <div className="pt-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="role">Category</Label>
+                      <Select
+                        onValueChange={handleCategoryChange}
+                        // value={formData.category}
+                        className="z-10"
+                        id="role"
+                        required
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a category" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white">
+                          <SelectGroup>
+                            <SelectItem value="grocery">Grocery</SelectItem>
+                            <SelectItem value="fashion">Fashion</SelectItem>
+                            <SelectItem value="electronics">
+                              Electronics
+                            </SelectItem>
+                            <SelectItem value="pharmaceuticals">
+                              Pharmaceuticals
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <Input
+                      id="price"
+                      name="price"
+                      label={"Product Price"}
+                      placeholder="$0.00"
+                      required
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      type="text"
+                    />
+                  </div>
+                  <div className="pt-2">
+                    <Input
+                      value={formData.created_by}
+                      disabled={true}
+                      id="username"
+                      name="username"
+                      label={"Created by"}
+                      type="text"
+                      required
+                    />
                   </div>
                 </div>
                 <div className="pt-2">
                   <Input
-                    id="price"
-                    label={"Product Price"}
-                    placeholder="$0.00"
-                    required
-                  />
-                </div>
-                <div className="pt-2">
-                  <Input
-                    value={userName ? userName : ""}
+                    value={userEmail ? userEmail : ""}
                     disabled={true}
-                    id="username"
-                    label={"Created by"}
+                    id="email"
+                    name="email"
+                    label={"User Email"}
+                    placeholder="johndoe@example.com"
                     required
+                    type="email"
                   />
                 </div>
               </div>
-              <div className="pt-2">
-                <Input
-                  value={userEmail ? userEmail : ""}
-                  disabled={true}
-                  id="email"
-                  label={"User Email"}
-                  placeholder="johndoe@example.com"
-                  required
-                  type="email"
-                />
-              </div>
-            </div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              >
+                Add Product
+              </button>
+            </form>
           </CardContent>
-          <CardFooter>
-            <button className="flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
-              Add Product
-            </button>
-          </CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       </div>
     </div>

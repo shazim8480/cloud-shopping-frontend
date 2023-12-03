@@ -4,11 +4,12 @@ import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+
 // components
 import Input from "@/components/Input";
 
 // query
-import { useSignInMutation } from "@/redux/feature/auth/auth-api";
+import { useSignUpMutation } from "@/redux/feature/auth/auth-api";
 
 // reducers
 import { setUser } from "@/redux/feature/users/userSlice";
@@ -24,7 +25,7 @@ const poppins = Poppins({
 });
 
 const SignUpPage = () => {
-  //   const [signIn] = useSignInMutation();
+  const [signUp] = useSignUpMutation();
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -42,20 +43,24 @@ const SignUpPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
-    // let response = await signIn(formData);
-    if (response?.error?.data?.status === false) {
-      alert(response?.error?.data?.error);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Wrong email format! Please put a valid email");
     } else {
-      console.log("sign-up response", response);
-      dispatch(setUser(response));
-      router.push("/dashboard");
+      let response = await signUp(formData);
+      if (response?.error) {
+        alert(response?.error?.data?.message);
+      } else {
+        console.log("sign up response", response);
+        dispatch(setUser(response));
+        router.push("/dashboard");
+      }
     }
   };
 
   return (
     <div
-      className={`flex min-h-screen flex-col bg-green-50 items-center justify-between p-24 ${poppins.className}`}
+      className={`flex min-h-screen flex-col bg-green-50 items-center justify-center p-24 ${poppins.className}`}
     >
       {/* <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8"> */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
