@@ -9,4 +9,4 @@ export const USER_SIGN_UP = "/sign-up";
 export const GET_ALL_PRODUCTS = "/products";
 export const ADD_PRODUCT = "/add-product";
 export const UPDATE_PRODUCT = "/product/:id";
-export const DELETE_PRODUCT = "/product/:id";
+export const DELETE_PRODUCT = "/product";
